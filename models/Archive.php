@@ -12,6 +12,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property string $description
+ * @property string $created_at
  *
  * @property Thing[] $things
  * @see Archive::getThings()

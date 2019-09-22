@@ -11,6 +11,7 @@ use yii\db\ActiveQuery;
  * @property int $archive_id
  * @property string $type
  * @property string $description
+ * @property string $created_at
  *
  * @property-read Archive $archive
  * @see Thing::getArchive()
