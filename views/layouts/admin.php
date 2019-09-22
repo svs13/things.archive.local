@@ -18,8 +18,8 @@ array_unshift(
         <?= SideNav::widget([
             'items' => [
                 ['label' => 'Архивы',   'url' => ['/admin/archive']],
-                ['label' => 'Вещи',     'url' => ['/admin/thinks']],
-                ['label' => 'Фото',     'url' => ['/admin/photos']],
+                ['label' => 'Вещи',     'url' => ['/admin/thing']],
+                ['label' => 'Фото',     'url' => ['/admin/photo']],
             ],
         ]);
         ?>

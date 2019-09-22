@@ -11,6 +11,7 @@ use yii\db\ActiveQuery;
  * @package app\models
  *
  * @property int $id
+ * @property string $name
  * @property string $description
  * @property string $created_at
  *
@@ -28,12 +29,23 @@ class Archive extends \yii\db\ActiveRecord
     }
 
     /**
+     * Список мест хранения
+     *
+     * @return array
+     */
+    public static function getList()
+    {
+        return static::find()->select('name')->indexBy('id')->column();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['description'], 'string', 'max' => 255],
+            ['name', 'required'],
+            [['name', 'description'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +56,7 @@ class Archive extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'name' => 'Название',
             'description' => 'Описание',
             'created_at' => 'Дата создания',
         ];

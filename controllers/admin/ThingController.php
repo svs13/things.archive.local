@@ -3,19 +3,19 @@
 namespace app\controllers\admin;
 
 use Yii;
-use app\models\Archive;
-use app\models\search\ArchiveSearch;
+use app\models\Thing;
+use app\models\search\ThingSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
- * Действия с архивом
+ * Вещь
  *
- * Class ArchiveController
+ * Class ThingController
  * @package app\controllers\admin
  */
-class ArchiveController extends AdminController
+class ThingController extends AdminController
 {
     /**
      * {@inheritdoc}
@@ -39,7 +39,7 @@ class ArchiveController extends AdminController
      */
     public function actionIndex()
     {
-        $searchModel = new ArchiveSearch();
+        $searchModel = new ThingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,7 +55,7 @@ class ArchiveController extends AdminController
      */
     public function actionCreate()
     {
-        $model = new Archive();
+        $model = new Thing();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->id]);
@@ -106,12 +106,12 @@ class ArchiveController extends AdminController
      * Найти модель
      *
      * @param $id
-     * @return Archive|null
+     * @return Thing|null
      * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
-        $model = Archive::findOne($id);
+        $model = Thing::findOne($id);
 
         if (empty($model)) {
             throw new NotFoundHttpException('The requested page does not exist.');

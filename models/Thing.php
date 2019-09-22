@@ -20,6 +20,18 @@ use yii\db\ActiveQuery;
  */
 class Thing extends \yii\db\ActiveRecord
 {
+    public const
+        TYPE_SHOES = 'shoes',
+        TYPE_CLOTHES = 'clothes',
+        TYPE_LIST = [
+            self::TYPE_SHOES,
+            self::TYPE_CLOTHES,
+        ],
+        TYPE_LABELS = [
+            self::TYPE_SHOES => 'Обувь',
+            self::TYPE_CLOTHES => 'Одежда',
+        ];
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +47,8 @@ class Thing extends \yii\db\ActiveRecord
     {
         return [
             [['archive_id'], 'integer'],
-            [['type'], 'required'],
-            [['type', 'description'], 'string', 'max' => 255],
+            [['type', 'name'], 'required'],
+            [['type', 'name', 'description'], 'string', 'max' => 255],
             [['archive_id'], 'exist', 'skipOnError' => true, 'targetClass' => Archive::class, 'targetAttribute' => ['archive_id' => 'id']],
         ];
     }
@@ -49,8 +61,10 @@ class Thing extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'archive_id' => 'Место хранения',
-            'type' => 'Type',
-            'description' => 'Description',
+            'type' => 'Тип',
+            'name' => 'Название',
+            'description' => 'Описание',
+            'archive.name' => 'Место хранения',
             'created_at' => 'Дата создания',
         ];
     }

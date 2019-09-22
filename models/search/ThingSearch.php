@@ -3,24 +3,26 @@
 namespace app\models\search;
 
 use yii\data\ActiveDataProvider;
-use app\models\Archive;
+use app\models\Thing;
 
 /**
- * Поиск места хранения
+ * Поиск вещи
  *
  * Class ArchiveSearch
  * @package app\models\search
  */
-class ArchiveSearch extends Archive
+class ThingSearch extends Thing
 {
+    public $archiveName;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'description', 'created_at'], 'safe'],
+            [['id', 'archive_id'], 'integer'],
+            [['name', 'archiveName', 'type', 'description', 'created_at'], 'safe'],
         ];
     }
 
@@ -33,7 +35,7 @@ class ArchiveSearch extends Archive
      */
     public function search($params)
     {
-        $query = Archive::find();
+        $query = Thing::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -47,15 +49,18 @@ class ArchiveSearch extends Archive
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'archive_id' => $this->archive_id,
             'created_at' => $this->created_at,
         ]);
 
-        if (!empty($this->description)) {
-            $query->andWhere(['LIKE', 'description', $this->description]);
+        if (!empty($this->type)) {
+            $query
+                ->filterWhere(['like', 'type', $this->type]);
         }
 
-
-        $query->andFilterWhere(['like', 'description', $this->description]);
+        if (!empty($this->name)) {
+            $query->filterWhere(['like', 'name', $this->name]);
+        }
 
         return $dataProvider;
     }

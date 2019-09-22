@@ -16,6 +16,7 @@ class m190922_115352_create_archives_table extends Migration
     {
         $this->createTable('archives', [
             'id' => $this->primaryKey()->unsigned(),
+            'name' => $this->string()->notNull(),
             'description' => $this->string(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('NOW()'),
         ]);

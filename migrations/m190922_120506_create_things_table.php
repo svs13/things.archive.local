@@ -18,6 +18,7 @@ class m190922_120506_create_things_table extends Migration
             'id' => $this->primaryKey()->unsigned(),
             'archive_id' => $this->integer()->unsigned(),
             'type' => $this->string()->notNull(),
+            'name' => $this->string()->notNull(),
             'description' => $this->string(),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('NOW()'),
         ]);
