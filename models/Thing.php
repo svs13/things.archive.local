@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Вещь
  *
@@ -10,8 +12,10 @@ namespace app\models;
  * @property string $type
  * @property string $description
  *
- * @property Archive $archive
+ * @property-read Archive $archive
  * @see Thing::getArchive()
+ * @property-read Photo[] $photos
+ * @see Thing::getPhotos()
  */
 class Thing extends \yii\db\ActiveRecord
 {
@@ -51,12 +55,25 @@ class Thing extends \yii\db\ActiveRecord
     }
 
     /**
-     * Хранилище
+     * Место хранения
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getArchive()
+    public function getArchive(): ActiveQuery
     {
-        return $this->hasOne(Archive::className(), ['id' => 'archive_id']);
+        return $this->hasOne(Archive::class, ['id' => 'archive_id']);
+    }
+
+    /**
+     * Фото
+     *
+     * @return ActiveQuery
+     */
+    public function getPhotos(): ActiveQuery
+    {
+        return $this->hasMany(Photo::class, [
+            'entity_id' => 'id',
+            'entity_type' => PhotoEntity::TYPE_THING
+        ]);
     }
 }

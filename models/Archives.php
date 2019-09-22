@@ -2,8 +2,10 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+
 /**
- * Хранилище
+ * Место хранения
  *
  * Class Archive
  * @package app\models
@@ -49,10 +51,23 @@ class Archive extends \yii\db\ActiveRecord
     /**
      * Вещь
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getThings()
     {
-        return $this->hasMany(Thing::className(), ['archive_id' => 'id']);
+        return $this->hasMany(Thing::class, ['archive_id' => 'id']);
+    }
+
+    /**
+     * Фото
+     *
+     * @return ActiveQuery
+     */
+    public function getPhotos()
+    {
+        return $this->hasMany(Photo::class, [
+            'entity_id' => 'id',
+            'entity_type' => PhotoEntity::TYPE_ARCHIVE
+        ]);
     }
 }

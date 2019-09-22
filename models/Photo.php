@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * Фото
  *
@@ -53,5 +55,22 @@ class Photo extends \yii\db\ActiveRecord
             'sort' => 'Сортировка',
             'created_at' => 'Дата создания',
         ];
+    }
+
+    /**
+     * Объект на фото
+     *
+     * @return null|ActiveQuery
+     */
+    public function getEntity()
+    {
+        if (!PhotoEntity::isTypeExists($this->entity_type)) {
+            return null;
+        }
+
+        return $this->hasOne(
+            PhotoEntity::getClassByType($this->entity_type),
+            ['id' => 'entity_id']
+        );
     }
 }
