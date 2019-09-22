@@ -70,4 +70,21 @@ class PhotoEntity
 
         return $class::find();
     }
+
+    /**
+     * Список сущностей заданного типа
+     *
+     * @param string $type
+     * @return array
+     */
+    public static function getEntityListByType(string $type): array
+    {
+        $query = static::getEntityActiveQuery($type);
+
+        if (empty($query)) {
+            return [];
+        }
+
+        return $query->select('name')->indexBy('id')->column();
+    }
 }

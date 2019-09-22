@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use app\models\PhotoEntity;
 use Yii;
 use app\models\Photo;
 use app\models\search\PhotoSearch;
@@ -119,5 +120,42 @@ class PhotoController extends Controller
         }
 
         return $model;
+    }
+
+    /**
+     * Список сущностей с заданным типом
+     * Формат выходных данных:
+     * [['id' => 1, 'name' => 'exp1'], ..]
+     *
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionEntityList()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = ['output' => '', 'selected' => ''];
+
+        $parents = Yii::$app->request->post('depdrop_parents');
+
+        if (empty($parents)) {
+            return $data;
+        }
+
+        $entityType = $parents[0];
+
+        if (!PhotoEntity::isTypeExists($entityType)) {
+            throw new NotFoundHttpException();
+        }
+
+        $list = PhotoEntity::getEntityListByType($entityType);
+        /** Формат ['id' => 1, 'name' => 'exp1'] */
+        $toListFormat = function ($k, $v) {
+            return ['id' => $k, 'name' => $v];
+        };
+        $listData = \array_map($toListFormat, array_keys($list), $list);
+
+        $data['output'] = $listData;
+
+        return $data;
     }
 }
