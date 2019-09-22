@@ -21,7 +21,7 @@ class m190922_121549_create_photos_table extends Migration
             'url' => $this->string()->notNull(),
             'path' => $this->string()->notNull(),
             'sort' => $this->integer()->unsigned()->notNull(),
-            'created_at' => $this->timestamp()->notNull(),
+            'created_at' => $this->timestamp()->notNull()->defaultExpression('NOW()'),
         ]);
 
         $this->createIndex(
