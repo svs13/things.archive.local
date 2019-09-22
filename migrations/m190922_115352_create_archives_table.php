@@ -5,6 +5,7 @@ use yii\db\Migration;
 /**
  * Добавление таблицы archives "Архивы"
  *
+ * Class m190922_115352_create_archives_table
  */
 class m190922_115352_create_archives_table extends Migration
 {
