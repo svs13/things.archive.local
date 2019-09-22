@@ -5,7 +5,6 @@ namespace app\controllers\admin;
 use Yii;
 use app\models\Archive;
 use app\models\search\ArchiveSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -15,7 +14,7 @@ use yii\filters\VerbFilter;
  * Class ArchiveController
  * @package app\controllers\admin
  */
-class ArchiveController extends Controller
+class ArchiveController extends AdminController
 {
     /**
      * {@inheritdoc}

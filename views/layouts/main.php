@@ -52,7 +52,8 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            ['label' => 'Admin', 'url' => ['/admin/archive']],
         ],
     ]);
     NavBar::end();
