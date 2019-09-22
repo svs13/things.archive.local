@@ -15,7 +15,7 @@ class m190922_115352_create_archives_table extends Migration
     public function safeUp()
     {
         $this->createTable('archives', [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'description' => $this->string(),
         ]);
     }

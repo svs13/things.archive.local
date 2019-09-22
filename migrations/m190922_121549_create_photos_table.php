@@ -15,7 +15,7 @@ class m190922_121549_create_photos_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%photos}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'entity_type' => $this->string()->notNull(),
             'entity_id' => $this->integer()->unsigned()->notNull(),
             'url' => $this->string()->notNull(),

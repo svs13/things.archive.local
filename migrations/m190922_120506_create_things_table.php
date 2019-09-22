@@ -15,8 +15,8 @@ class m190922_120506_create_things_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%things}}', [
-            'id' => $this->primaryKey(),
-            'archive_id' => $this->integer(),
+            'id' => $this->primaryKey()->unsigned(),
+            'archive_id' => $this->integer()->unsigned(),
             'type' => $this->string()->notNull(),
             'description' => $this->string(),
         ]);
@@ -27,7 +27,6 @@ class m190922_120506_create_things_table extends Migration
             'archive_id'
         );
 
-        // add foreign key for table `{{%archives}}`
         $this->addForeignKey(
             '{{%fk-things-archive_id}}',
             '{{%things}}',
@@ -43,13 +42,11 @@ class m190922_120506_create_things_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%archives}}`
         $this->dropForeignKey(
             '{{%fk-things-archive_id}}',
             '{{%things}}'
         );
 
-        // drops index for column `archive_id`
         $this->dropIndex(
             '{{%idx-things-archive_id}}',
             '{{%things}}'
