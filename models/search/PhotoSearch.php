@@ -3,15 +3,15 @@
 namespace app\models\search;
 
 use yii\data\ActiveDataProvider;
-use app\models\Archive;
+use app\models\Photo;
 
 /**
- * Поиск места хранения
+ * Поиск фото
  *
- * Class ArchiveSearch
+ * Class PhotoSearch
  * @package app\models\search
  */
-class ArchiveSearch extends Archive
+class PhotoSearch extends Photo
 {
     /**
      * {@inheritdoc}
@@ -19,8 +19,8 @@ class ArchiveSearch extends Archive
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'description', 'created_at'], 'safe'],
+            [['id', 'entity_id', 'sort'], 'integer'],
+            [['entity_type', 'url', 'created_at'], 'safe'],
         ];
     }
 
@@ -33,7 +33,7 @@ class ArchiveSearch extends Archive
      */
     public function search($params)
     {
-        $query = Archive::find();
+        $query = Photo::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -47,10 +47,14 @@ class ArchiveSearch extends Archive
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'entity_id' => $this->entity_id,
+            'sort' => $this->sort,
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'entity_type', $this->entity_type])
+            ->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'path', $this->path]);
 
         return $dataProvider;
     }

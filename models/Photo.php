@@ -34,10 +34,9 @@ class Photo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['entity_type', 'entity_id', 'url', 'path', 'sort', 'created_at'], 'required'],
+            [['entity_type', 'entity_id', 'url', 'sort', 'created_at'], 'required'],
             [['entity_id', 'sort'], 'integer'],
-            [['created_at'], 'safe'],
-            [['entity_type', 'url', 'path'], 'string', 'max' => 255],
+            [['entity_type', 'url'], 'string', 'max' => 255],
         ];
     }
 
